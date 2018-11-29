@@ -8,7 +8,8 @@ terragrunt = {
         "plan",
         "import",
         "push",
-        "refresh"
+        "refresh",
+        "destroy"
       ]
 
       arguments = [

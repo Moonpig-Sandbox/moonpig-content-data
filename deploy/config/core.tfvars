@@ -1,0 +1,1 @@
+ContentStackUpdatesTableName = "mnpg-content-contentstack-update"

@@ -1,0 +1,6 @@
+variable ContentStackUpdatesTableName {}
+variable ContentStackUpdatesTableReadCapacityUnitsMin {}
+variable ContentStackUpdatesTableReadCapacityUnitsMax {}
+variable ContentStackUpdatesTableWriteCapacityUnitsMin {}
+variable ContentStackUpdatesTableWriteCapacityUnitsMax {}
+variable ContentStackUpdatesTableAutoScalePolicyTargetValue {}

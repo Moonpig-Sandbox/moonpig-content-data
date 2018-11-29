@@ -1,3 +1,8 @@
+variable TagName {}
+variable TagEnvironment {}
+variable TagOwner {}
+variable TagTeam {}
+variable TagWorkstream {}
 variable ContentStackUpdatesTableName {}
 variable ContentStackUpdatesTableReadCapacityUnitsMin {}
 variable ContentStackUpdatesTableReadCapacityUnitsMax {}

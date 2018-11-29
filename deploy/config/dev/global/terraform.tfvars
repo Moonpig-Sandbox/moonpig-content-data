@@ -13,6 +13,7 @@ terragrunt = {
 
       arguments = [
         "-var-file=${get_tfvars_dir()}/../../core.tfvars",
+        "-var-file=${get_tfvars_dir()}/../dev.tfvars",
         "-var-file=terraform.tfvars"
       ]
     }

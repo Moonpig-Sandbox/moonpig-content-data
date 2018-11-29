@@ -20,11 +20,11 @@ resource "aws_dynamodb_table" "dynamodb-table" {
   }
 
   tags {
-    "mnpg:name"        = "mnpg-content"
-    "mnpg:owner"       = "callum.hibbert@moonpig.com"
-    "mnpg:environment" = "dev"
-    "mnpg:team"        = "Team X"
-    "mnpg:workstream"  = "NA"
+    "mnpg:environment" = "${var.TagEnvironment}"
+    "mnpg:name"        = "${var.TagName}"
+    "mnpg:owner"       = "${var.TagOwner}"
+    "mnpg:team"        = "${var.TagTeam}"
+    "mnpg:workstream"  = "${var.TagWorkstream}"
   }
 }
 

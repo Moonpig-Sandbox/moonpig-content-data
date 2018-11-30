@@ -6,8 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install AWS CLI
-          command: apt update && apt install awscli, python-pip
+          name: AWS
+          command: aws sts get-caller-identity
       - run:
           name: Print the Current Time
           command: date

@@ -17,7 +17,11 @@ jobs:
       # - run:
       #     name: Terraform
       #     command: terraform version
-      - run: apt-get install -y sudo
+      - run: |
+          apt-get update
+          apt-get install -y sudo
+          pip install --upgrade pip
+          pip install awscli
       # - run:
       #     name: AWS
       #     command: aws sts get-caller-identity

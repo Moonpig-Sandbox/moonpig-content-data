@@ -6,8 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Upgrade pip
-          command: pip install --upgrade pip
+          name: Install pip
+          command: apt install python3-pip
       - run:
           name: Install awscli
           command: pip install awscli

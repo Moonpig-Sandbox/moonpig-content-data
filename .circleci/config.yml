@@ -6,8 +6,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo Hello, world.
+          name: Upgrade pip
+          command: pip install --upgrade pip
+      - run:
+          name: Install awscli
+          command: pip install awscli
       - run:
           name: Print the Current Time
           command: date

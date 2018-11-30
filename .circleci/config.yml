@@ -6,11 +6,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: AWS
-          command: ~/bin/aws sts get-caller-identity
-      - run:
           name: Terraform
           command: terraform version
+      - run:
+          name: AWS
+          command: aws sts get-caller-identity
       - run:
           name: Print the Current Time
           command: date

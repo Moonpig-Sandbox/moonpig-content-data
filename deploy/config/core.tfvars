@@ -1,7 +1,6 @@
-
-TagName                      = "mnpg-content"
-TagOwner                     = "callum.hibbert@moonpig.com"
-TagTeam                      = "Team X"
-TagWorkstream                = "NA"
+TagNameValue                 = "mnpg-content"
+TagOwnerValue                = "callum.hibbert@moonpig.com"
+TagTeamValue                 = "Team X"
+TagWorkstreamValue           = "NA"
 
 ContentStackUpdatesTableName = "mnpg-content-contentstack-update"

@@ -20,11 +20,11 @@ resource "aws_dynamodb_table" "dynamodb-table" {
   }
 
   tags {
-    "mnpg:environment" = "${var.TagEnvironment}"
-    "mnpg:name"        = "${var.TagName}"
-    "mnpg:owner"       = "${var.TagOwner}"
-    "mnpg:team"        = "${var.TagTeam}"
-    "mnpg:workstream"  = "${var.TagWorkstream}"
+    "mnpg:environment" = "${var.TagEnvironmentValue}"
+    "mnpg:name"        = "${var.TagNameValue}"
+    "mnpg:owner"       = "${var.TagOwnerValue}"
+    "mnpg:team"        = "${var.TagTeamValue}"
+    "mnpg:workstream"  = "${var.TagWorkstreamValue}"
   }
 }
 
@@ -48,11 +48,11 @@ resource "aws_iam_role" "scaling-role" {
 EOF
 
   tags {
-    "mnpg:name"        = "mnpg-content"
-    "mnpg:owner"       = "callum.hibbert@moonpig.com"
-    "mnpg:environment" = "dev"
-    "mnpg:team"        = "Team X"
-    "mnpg:workstream"  = "NA"
+    "mnpg:environment" = "${var.TagEnvironmentValue}"
+    "mnpg:name"        = "${var.TagNameValue}"
+    "mnpg:owner"       = "${var.TagOwnerValue}"
+    "mnpg:team"        = "${var.TagTeamValue}"
+    "mnpg:workstream"  = "${var.TagWorkstreamValue}"
   }
 }
 

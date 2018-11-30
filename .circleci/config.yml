@@ -5,21 +5,22 @@ jobs:
   build:
 
     docker:
-      - image: circleci/terraform:0.11.10
+       - image: ubuntu:latest
+    #  - image: circleci/terraform:0.11.10
 
     # Requires the following environment variables setting:
     # - AWS_ACCESS_KEY_ID
     # - AWS_SECRET_ACCESS_KEY
     # - AWS_DEFAULT_REGION
     steps:
-      - checkout
-      - run:
-          name: Terraform
-          command: terraform version
+      # - checkout
+      # - run:
+      #     name: Terraform
+      #     command: terraform version
       - run: apt-get install -y sudo
-      - run:
-          name: AWS
-          command: aws sts get-caller-identity
+      # - run:
+      #     name: AWS
+      #     command: aws sts get-caller-identity
       - run:
           name: Print the Current Time
           command: date

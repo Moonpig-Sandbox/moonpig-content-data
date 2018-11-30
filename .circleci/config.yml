@@ -7,6 +7,9 @@ jobs:
       - checkout
       - run:
           name: AWS
+          command: aws sts get-caller-identity
+      - run:
+          name: Terraform
           command: terraform version
       - run:
           name: Print the Current Time

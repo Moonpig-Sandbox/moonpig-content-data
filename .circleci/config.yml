@@ -20,6 +20,7 @@ jobs:
       - run: |
           apt-get update
           apt-get install -y sudo
+          sudo apt-get install -y curl
           sudo apt-get install -y python3
           curl -O https://bootstrap.pypa.io/get-pip.py
           python get-pip.py --user

@@ -6,14 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Update
-          command: apt-get update
-      - run:
-          name: Install pip
-          command: apt-get install python-pip
-      - run:
-          name: Install awscli
-          command: pip install awscli
+          name: Install AWS CLI
+          command: apt update && apt install awscli, python-pip
       - run:
           name: Print the Current Time
           command: date

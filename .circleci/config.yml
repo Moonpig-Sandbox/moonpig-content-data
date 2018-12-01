@@ -1,25 +1,23 @@
 version: 2
-
 jobs:
-
   build:
-
-    docker:
-       - image: moonpig/build-aws:latest
-
     # Requires the following environment variables setting:
     # - AWS_ACCESS_KEY_ID
     # - AWS_SECRET_ACCESS_KEY
-    # - AWS_DEFAULT_REGION
+    environment:
+      AWS_DEFAULT_REGION: 0 # Defined locally for now, may need to parameterise
+      AWS_ACCOUNT_ID: 452630188168 # Defined locally for now, may need to parameterise
+      AWS_ROLE_NAME: mnpg-content-data-pipeline-dev # Defined locally for now, may need to parameterise
+    docker:
+       - image: moonpig/build-aws:latest
     steps:
       - run:
           name: AWS
-          command: aws sts get-caller-identity
+          command: |
+            ASSUME_OUT=$(aws sts assume-role --role-arn arn:aws:iam::"${AWS_ACCOUNT_ID}":role/"${AWS_ROLE_NAME}" --role-session-name "${AWS_ROLE_NAME}"-$(date +%d-%m-%y))
+            echo ${ASSUME_OUT}
       - run:
           name: Terraform
           command: |
             terraform version
             terragrunt
-      - run:
-          name: Print the Current Time
-          command: date

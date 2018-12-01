@@ -1,1 +1,3 @@
 variable ContentStackUpdatesTableName {}
+
+variable EnvironmentName {}

@@ -1,6 +1,6 @@
 terragrunt = {
   terraform {
-    source = "../../../modules//global"
+    source = "../../../modules//prereqs"
 
     extra_arguments "custom_vars" {
       commands = [

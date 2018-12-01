@@ -1,0 +1,52 @@
+provider "aws" {
+  alias = "region"
+}
+
+data "aws_region" "current" {
+  provider = "aws.region"
+}
+
+resource "aws_iam_role" "pipeline-role" {
+  name = "${var.PipelineRoleName}-${var.EnvironmentName}"
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": [
+            "arn:aws:iam::${var.SdlcAwsAccountId}:user/${var.RootPipelineUsername}"
+          ]
+        },
+        "Action": "sts:AssumeRole"
+    }
+}
+EOF
+
+  tags {
+    "mnpg:environment" = "${var.TagEnvironmentValue}"
+    "mnpg:name"        = "${var.TagNameValue}"
+    "mnpg:owner"       = "${var.TagOwnerValue}"
+    "mnpg:team"        = "${var.TagTeamValue}"
+    "mnpg:workstream"  = "${var.TagWorkstreamValue}"
+  }
+}
+
+resource "aws_iam_role_policy" "pipeline-role-policy" {
+  name = "${var.PipelineRoleName}-${var.EnvironmentName}"
+  role = "${aws_iam_role.pipeline-role.id}"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}

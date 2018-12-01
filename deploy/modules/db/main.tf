@@ -8,7 +8,7 @@ data "aws_region" "current" {
 
 resource "aws_dynamodb_table" "dynamodb-table" {
   hash_key         = "id"
-  name             = "${var.ContentStackUpdatesTableName}"
+  name             = "${var.ContentStackUpdatesTableName}-${var.EnvironmentName}"
   read_capacity    = "${var.ContentStackUpdatesTableReadCapacityUnitsMin}"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
@@ -29,7 +29,7 @@ resource "aws_dynamodb_table" "dynamodb-table" {
 }
 
 resource "aws_iam_role" "scaling-role" {
-  name = "${var.ContentStackUpdatesTableName}-autoscale-${data.aws_region.current.name}"
+  name = "${var.ContentStackUpdatesTableName}-autoscale-${var.EnvironmentName}-${data.aws_region.current.name}"
 
   assume_role_policy = <<EOF
 {
@@ -56,10 +56,9 @@ EOF
   }
 }
 
-resource "aws_iam_policy" "scaling-role-policy" {
-  name        = "${var.ContentStackUpdatesTableName}-autoscale"
-  path        = "/"
-  description = "${var.ContentStackUpdatesTableName}-autoscale"
+resource "aws_iam_role_policy" "scaling-role-policy" {
+  name        = "${var.ContentStackUpdatesTableName}-autoscale-${var.EnvironmentName}-${data.aws_region.current.name}"
+  role        = "${aws_iam_role.scaling-role.id}"
 
   policy = <<EOF
 {

@@ -1,5 +1,5 @@
 resource "aws_dynamodb_global_table" "dynamodb-table" {
-  name = "${var.ContentStackUpdatesTableName}"
+  name = "${var.ContentStackUpdatesTableName}-${var.EnvironmentName}"
 
   replica {
     region_name = "us-east-1"

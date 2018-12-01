@@ -14,7 +14,7 @@ jobs:
       - run:
           name: AWS
           command: |
-            ASSUME_OUT=$(aws sts assume-role --role-arn arn:aws:iam::"${AWS_ACCOUNT_ID}":role/"${AWS_ROLE_NAME}" --role-session-name "${AWS_ROLE_NAME}"-$(date +%d-%m-%y))
+            ASSUME_OUT=$(aws sts assume-role --role-arn 'arn:aws:iam::${AWS_ACCOUNT_ID}:role/${AWS_ROLE_NAME}'' --role-session-name '${AWS_ROLE_NAME}-$(date +%d-%m-%y))'
             echo ${ASSUME_OUT}
       - run:
           name: Terraform

@@ -5,7 +5,7 @@ jobs:
   build:
 
     docker:
-       - image: ubuntu:latest
+       - image: moonpig/build-aws:latest
     #  - image: circleci/terraform:0.11.10
 
     # Requires the following environment variables setting:
@@ -17,19 +17,19 @@ jobs:
       # - run:
       #     name: Terraform
       #     command: terraform version
-      - run: 
-          name: Install
-          command: |
-            apt-get update
-            apt-get install -y sudo
-            sudo apt-get install -y curl
-            sudo apt-get install -y python3
-            sudo apt install -y python3-distutils
-            curl -O https://bootstrap.pypa.io/get-pip.py
-            python3 get-pip.py --user
-            export PATH=~/.local/bin:$PATH
-            pip install --upgrade pip
-            pip install awscli
+      # - run: 
+      #     name: Install
+      #     command: |
+      #       apt-get update
+      #       apt-get install -y sudo
+      #       sudo apt-get install -y curl
+      #       sudo apt-get install -y python3
+      #       sudo apt install -y python3-distutils
+      #       curl -O https://bootstrap.pypa.io/get-pip.py
+      #       python3 get-pip.py --user
+      #       export PATH=~/.local/bin:$PATH
+      #       pip install --upgrade pip
+      #       pip install awscli
       - run:
           name: AWS
           command: aws sts get-caller-identity

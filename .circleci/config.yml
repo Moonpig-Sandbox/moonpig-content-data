@@ -5,9 +5,9 @@ jobs:
     # - AWS_ACCESS_KEY_ID
     # - AWS_SECRET_ACCESS_KEY
     environment:
-      AWS_DEFAULT_REGION: us-east-1 # Defined locally for now, may need to parameterise
-      AWS_ACCOUNT_ID: 452630188168 # Defined locally for now, may need to parameterise
-      AWS_ROLE_NAME: mnpg-content-data-pipeline-dev # Defined locally for now, may need to parameterise
+      AWS_DEFAULT_REGION: "us-east-1" # Defined locally for now, may need to parameterise
+      AWS_ACCOUNT_ID: "452630188168" # Defined locally for now, may need to parameterise
+      AWS_ROLE_NAME: "mnpg-content-data-pipeline-dev" # Defined locally for now, may need to parameterise
     docker:
        - image: moonpig/build-aws:latest
     steps:

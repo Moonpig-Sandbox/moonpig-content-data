@@ -1,7 +1,7 @@
 resource "aws_appautoscaling_target" "dynamodb_table_read_target" {
   max_capacity       = "${var.ContentStackUpdatesTableReadCapacityUnitsMax}"
   min_capacity       = "${var.ContentStackUpdatesTableReadCapacityUnitsMin}"
-  resource_id        = "table/${var.ContentStackUpdatesTableName}"
+  resource_id        = "table/${var.ContentStackUpdatesTableName}-${var.EnvironmentName}"
   role_arn           = "${aws_iam_role.scaling-role.arn}"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
   service_namespace  = "dynamodb"
@@ -26,7 +26,7 @@ resource "aws_appautoscaling_policy" "dynamodb_table_read_policy" {
 resource "aws_appautoscaling_target" "dynamodb_table_write_target" {
   max_capacity       = "${var.ContentStackUpdatesTableWriteCapacityUnitsMax}"
   min_capacity       = "${var.ContentStackUpdatesTableWriteCapacityUnitsMin}"
-  resource_id        = "table/${var.ContentStackUpdatesTableName}"
+  resource_id        = "table/${var.ContentStackUpdatesTableName}-${var.EnvironmentName}"
   role_arn           = "${aws_iam_role.scaling-role.arn}"
   scalable_dimension = "dynamodb:table:WriteCapacityUnits"
   service_namespace  = "dynamodb"

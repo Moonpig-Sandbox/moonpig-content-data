@@ -1,11 +1,3 @@
-provider "aws" {
-  alias = "region"
-}
-
-data "aws_region" "current" {
-  provider = "aws.region"
-}
-
 resource "aws_iam_role" "pipeline-role" {
   name = "${var.PipelineRoleName}-${var.EnvironmentName}"
   assume_role_policy = <<EOF
@@ -41,10 +33,10 @@ resource "aws_iam_role_policy" "pipeline-role-policy" {
   "Statement": [
     {
       "Action": [
-        "ec2:*"
+        "dynamodb:*"
       ],
       "Effect": "Allow",
-      "Resource": "*"
+      "Resource": "arn:aws:dynamodb:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:table/${var.ContentStackUpdatesTableName}"
     }
   ]
 }

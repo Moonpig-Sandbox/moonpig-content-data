@@ -12,3 +12,4 @@ variable PipelineRoleName {}
 
 variable EnvironmentName {}
 
+variable ContentStackUpdatesTableName {}

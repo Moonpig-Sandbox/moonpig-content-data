@@ -28,5 +28,6 @@ jobs:
       - run:
           name: Terraform
           command: |
+            aws sts get-caller-identity
             cd ./deploy/config/${TARGET_ENVIRONMENT}/db
             terragrunt apply -auto-approve

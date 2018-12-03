@@ -29,6 +29,4 @@ jobs:
           name: Terraform
           command: |
             cd ./deploy/config/${TARGET_ENVIRONMENT}/db
-            terragrunt plan
-            #terraform version
-            #terragrunt
+            terragrunt apply -auto-approve

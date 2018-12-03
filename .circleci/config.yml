@@ -28,7 +28,8 @@ jobs:
           name: Terraform
           command: |
             ls
-            cd ./deploy/config/${TARGET_ENVIRONMENT}/db
-            terragrunt plan
+            cd ./deploy
+            # cd ./deploy/config/${TARGET_ENVIRONMENT}/db
+            # terragrunt plan
             #terraform version
             #terragrunt

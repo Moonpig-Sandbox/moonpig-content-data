@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Terraform
           command: |
-            cd deploy/config/${TARGET_ENVIRONMENT}/db
+            cd ./deploy/config/${TARGET_ENVIRONMENT}/db
             terragrunt plan
             #terraform version
             #terragrunt

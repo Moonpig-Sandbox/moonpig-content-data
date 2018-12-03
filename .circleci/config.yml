@@ -27,7 +27,8 @@ jobs:
       - run:
           name: Terraform
           command: |
-            ls
+            LS_OUT=$(ls)
+            echo ${LS_OUT}
             cd ./deploy
             # cd ./deploy/config/${TARGET_ENVIRONMENT}/db
             # terragrunt plan

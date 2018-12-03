@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    # Requires the following environment variables setting:
+    # Requires the following environment variables setting in CircleCI:
     # - AWS_ACCESS_KEY_ID
     # - AWS_SECRET_ACCESS_KEY
     environment:

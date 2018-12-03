@@ -12,6 +12,7 @@ jobs:
     docker:
        - image: moonpig/build-aws:latest
     steps:
+      - checkout
       - run:
           name: AWS - Assume Role
           command: |

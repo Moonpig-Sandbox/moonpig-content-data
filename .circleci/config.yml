@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  deploy_terraform:
     # Requires the following environment variables setting in CircleCI:
     # - AWS_ACCESS_KEY_ID
     # - AWS_SECRET_ACCESS_KEY
@@ -14,7 +14,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: AWS - Assume Role & Terraform
+          name: Assume Role & Terragrunt
           command: |
             echo "Current identity..."
             aws sts get-caller-identity
@@ -27,3 +27,8 @@ jobs:
             aws sts get-caller-identity
             cd ./deploy/config/${TARGET_ENVIRONMENT}/db
             terragrunt apply -auto-approve
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy_terraform

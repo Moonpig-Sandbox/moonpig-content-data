@@ -17,12 +17,17 @@ orbs:
           aws_role_name:
             description: The target AWS Role Name
             type: string
+          moonpig_aws_build_container_version:
+            description: "The version of the Moonpig 'build-aws' container."
+            type: string
+            default: latest
           terragrunt_working_dir:
             description: The Terragrunt working directory
             type: string
         executor:
           name: terragrunt_executor
           aws_default_region: <<parameters.aws_region>>
+          version: <<parameters.moonpig_aws_build_container_version>>
         steps:
           - assume_role_and_run_terragrunt:
               aws_account_id: <<parameters.aws_account_id>>
@@ -74,16 +79,19 @@ workflows:
           aws_account_id: "452630188168"
           aws_region: "us-east-1"
           aws_role_name: "mnpg-content-data-pipeline-dev"
+          moonpig_aws_build_container_version: "latest"
           terragrunt_working_dir: ./deploy/config/dev/us-east-1/db
       - deploy_to_aws_with_terragrunt/deploy_component:
           name: Deploy to eu-west-1
           aws_account_id: "452630188168"
           aws_region: "eu-west-1"
           aws_role_name: "mnpg-content-data-pipeline-dev"
+          moonpig_aws_build_container_version: "latest"
           terragrunt_working_dir: ./deploy/config/dev/eu-west-1/db
       - deploy_to_aws_with_terragrunt/deploy_component:
           name: Deploy to ap-southeast-2
           aws_account_id: "452630188168"
           aws_region: "ap-southeast-2"
           aws_role_name: "mnpg-content-data-pipeline-dev"
+          moonpig_aws_build_container_version: "latest"
           terragrunt_working_dir: ./deploy/config/dev/ap-southeast-2/db

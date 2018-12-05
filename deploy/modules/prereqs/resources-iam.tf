@@ -45,7 +45,7 @@ resource "aws_iam_role_policy" "pipeline-role-policy" {
       "Effect": "Allow",
       "Resource": [
         "arn:aws:dynamodb:eu-west-1:${data.aws_caller_identity.current.account_id}:table/${var.StateTableName}",
-        "arn:aws:dynamodb:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:table/${var.ContentStackUpdatesTableName}-*"
+        "arn:aws:dynamodb:*:${data.aws_caller_identity.current.account_id}:table/${var.ContentStackUpdatesTableName}-*"
       ]
     },
     {

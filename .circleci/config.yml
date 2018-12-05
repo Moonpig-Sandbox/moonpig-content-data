@@ -63,9 +63,10 @@ orbs:
         parameters:
           aws_default_region:
             type: string
+            default: eu-west-1
           version:
             type: string
-            default: "latest"
+            default: latest
         environment:
           AWS_DEFAULT_REGION: <<parameters.aws_default_region>>
         docker:

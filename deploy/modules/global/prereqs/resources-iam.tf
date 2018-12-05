@@ -45,7 +45,8 @@ resource "aws_iam_role_policy" "pipeline-role-policy" {
       "Effect": "Allow",
       "Resource": [
         "arn:aws:dynamodb:eu-west-1:${data.aws_caller_identity.current.account_id}:table/${var.StateTableName}",
-        "arn:aws:dynamodb:*:${data.aws_caller_identity.current.account_id}:table/${var.ContentStackUpdatesTableName}-*"
+        "arn:aws:dynamodb:*:${data.aws_caller_identity.current.account_id}:table/${var.ContentStackUpdatesTableName}-${var.EnvironmentName}",
+        "arn:aws:dynamodb::${data.aws_caller_identity.current.account_id}:global-table/${var.ContentStackUpdatesTableName}-${var.EnvironmentName}"
       ]
     },
     {
@@ -53,7 +54,7 @@ resource "aws_iam_role_policy" "pipeline-role-policy" {
         "iam:*"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.ContentStackUpdatesTableName}-autoscale-*"
+      "Resource": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.ContentStackUpdatesTableName}-autoscale-${var.EnvironmentName}"
     },
     {
       "Action": [

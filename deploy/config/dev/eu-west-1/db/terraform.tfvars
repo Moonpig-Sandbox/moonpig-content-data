@@ -1,16 +1,6 @@
 terragrunt = {
-  remote_state {
-    backend = "s3"
-    config {
-      bucket         = "mnpg-content-data-terraform-state"
-      key            = "dev/db/terraform.tfstate"
-      region         = "eu-west-1"
-      encrypt        = true
-      dynamodb_table = "mnpg-content-data-terraform-state-lock"
-    }
-  }
   terraform {
-    source = "../../../modules//db"
+    source = "../../../../modules/regional//db"
     extra_arguments "custom_vars" {
       commands = [
         "apply",
@@ -21,11 +11,14 @@ terragrunt = {
         "destroy"
       ]
       arguments = [
-        "-var-file=${get_tfvars_dir()}/../../core.tfvars",
-        "-var-file=${get_tfvars_dir()}/../dev.tfvars",
+        "-var-file=${get_tfvars_dir()}/../../../core.tfvars",
+        "-var-file=${get_tfvars_dir()}/../../dev.tfvars",
         "-var-file=terraform.tfvars"
       ]
     }
+  }
+  include = {
+    path = "${find_in_parent_folders("terragrunt.tfvars")}"
   }
 }
 

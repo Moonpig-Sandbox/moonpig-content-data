@@ -26,12 +26,15 @@ orbs:
         steps:
           - assume_role_and_run_terragrunt:
               aws_account_id: <<parameters.aws_account_id>>
+              aws_region: <<parameters.aws_region>>
               aws_role_name: <<parameters.aws_role_name>>
               target_environment: <<parameters.target_environment>>
     commands:
       assume_role_and_run_terragrunt:
         parameters:
           aws_account_id:
+            type: string
+          aws_region:
             type: string
           aws_role_name:
             type: string
@@ -51,7 +54,7 @@ orbs:
                 export AWS_SESSION_TOKEN=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SessionToken')
                 echo "Assumed identity..."
                 aws sts get-caller-identity
-                cd ./deploy/config/<<parameters.target_environment>>/db
+                cd ./deploy/config/<<parameters.target_environment>>/<<parameters.aws_region>>/db
                 terragrunt apply -auto-approve
     executors:
       terragrunt_executor:

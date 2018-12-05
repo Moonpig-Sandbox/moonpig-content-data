@@ -62,9 +62,9 @@ orbs:
             type: string
             default: "latest"
         environment:
-          AWS_DEFAULT_REGION: << parameters.aws_default_region >>
+          AWS_DEFAULT_REGION: <<parameters.aws_default_region>>
         docker:
-          - image: moonpig/build-aws:latest:<<parameters.version>>
+          - image: moonpig/build-aws:<<parameters.version>>
 
 workflows:
   deploy-multi-region:

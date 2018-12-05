@@ -1,3 +1,6 @@
+variable StateTableName{}
+variable StateBucketName{}
+
 variable TagNameValue {}
 variable TagEnvironmentValue {}
 variable TagOwnerValue {}

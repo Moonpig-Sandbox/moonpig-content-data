@@ -33,10 +33,20 @@ resource "aws_iam_role_policy" "pipeline-role-policy" {
   "Statement": [
     {
       "Action": [
+        "application-autoscaling:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Action": [
         "dynamodb:*"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:dynamodb:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:table/${var.ContentStackUpdatesTableName}-*"
+      "Resource": [
+        "arn:aws:dynamodb:eu-west-1:${data.aws_caller_identity.current.account_id}:table/${var.StateTableName}",
+        "arn:aws:dynamodb:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:table/${var.ContentStackUpdatesTableName}-*"
+      ]
     },
     {
       "Action": [
@@ -47,10 +57,13 @@ resource "aws_iam_role_policy" "pipeline-role-policy" {
     },
     {
       "Action": [
-        "application-autoscaling:*"
+        "s3:*"
       ],
       "Effect": "Allow",
-      "Resource": "*"
+      "Resource": [
+        "arn:aws:s3:::${var.StateBucketName}",
+        "arn:aws:s3:::${var.StateBucketName}/*"
+      ]
     }
   ]
 }

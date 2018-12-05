@@ -70,6 +70,12 @@ workflows:
   deploy-multi-region:
     jobs:
       - deploy_to_aws_With_terragrunt/deploy_component:
+          name: Deploy to us-east-1
+          aws_account_id: "452630188168"
+          aws_region: "us-east-1"
+          aws_role_name: "mnpg-content-data-pipeline-dev"
+          target_environment: "dev"
+      - deploy_to_aws_With_terragrunt/deploy_component:
           name: Deploy to eu-west-1
           aws_account_id: "452630188168"
           aws_region: "eu-west-1"

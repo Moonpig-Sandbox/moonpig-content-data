@@ -6,7 +6,7 @@ TagOwnerValue                = "callum.hibbert@moonpig.com"
 TagTeamValue                 = "Team X"
 TagWorkstreamValue           = "NA"
 
-ContentStackUpdatesTableName = "mnpg-content-data-contentstack-update"
+ContentStackUpdatesTableName = "mnpg-content-data-contentstack"
 
 SdlcAwsAccountId             = "168069798087"
 

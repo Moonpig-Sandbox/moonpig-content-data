@@ -75,32 +75,32 @@ workflows:
   deploy-multi-region:
     jobs:
       - deploy_to_aws_with_terragrunt/deploy_component:
-          name: deploy-us-east-1
+          name: us-east-1_deploy
           aws_account_id: "452630188168"
           aws_region: "us-east-1"
           aws_role_name: "mnpg-content-data-pipeline-dev"
           moonpig_aws_build_container_version: "latest"
           terragrunt_working_dir: ./deploy/config/dev/us-east-1/db
       - deploy_to_aws_with_terragrunt/deploy_component:
-          name: deploy-eu-west-1
+          name: eu-west-1_deploy
           aws_account_id: "452630188168"
           aws_region: "eu-west-1"
           aws_role_name: "mnpg-content-data-pipeline-dev"
           moonpig_aws_build_container_version: "latest"
           terragrunt_working_dir: ./deploy/config/dev/eu-west-1/db
       - deploy_to_aws_with_terragrunt/deploy_component:
-          name: deploy-ap-southeast-2
+          name: ap-southeast-2_deploy
           aws_account_id: "452630188168"
           aws_region: "ap-southeast-2"
           aws_role_name: "mnpg-content-data-pipeline-dev"
           moonpig_aws_build_container_version: "latest"
           terragrunt_working_dir: ./deploy/config/dev/ap-southeast-2/db
       - deploy_to_aws_with_terragrunt/deploy_component:
-          name: Deploy global resources
+          name: global_deploy
           requires:
-          - deploy-us-east-1
-          - deploy-eu-west-1
-          - deploy-ap-southeast-2
+          - us-east-1_deploy
+          - eu-west-1_deploy
+          - ap-southeast-2_deploy
           aws_account_id: "452630188168"
           aws_region: "eu-west-1"
           aws_role_name: "mnpg-content-data-pipeline-dev"

@@ -54,7 +54,7 @@ resource "aws_iam_role_policy" "pipeline-role-policy" {
         "iam:*"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.ContentStackUpdatesTableName}-autoscale-${var.EnvironmentName}"
+      "Resource": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.ContentStackUpdatesTableName}-autoscale-${var.EnvironmentName}-*"
     },
     {
       "Action": [

@@ -1,76 +1,9 @@
 version: 2.1
 
-description: My Description
+description: moonpig-content-data deployment
 
 orbs:
-  deploy_to_aws_with_terragrunt:
-    jobs:
-      deploy_component:
-        parameters:
-          aws_account_id:
-            description: The target AWS Account ID
-            type: string
-          aws_region:
-            description: The target AWS region
-            type: string
-            default: eu-west-1
-          aws_role_name:
-            description: The target AWS Role Name
-            type: string
-          moonpig_aws_build_container_version:
-            description: "The version of the Moonpig 'build-aws' container."
-            type: string
-            default: latest
-          terragrunt_working_dir:
-            description: The Terragrunt working directory
-            type: string
-        executor:
-          name: terragrunt_executor
-          aws_default_region: <<parameters.aws_region>>
-          version: <<parameters.moonpig_aws_build_container_version>>
-        steps:
-          - assume_role_and_run_terragrunt:
-              aws_account_id: <<parameters.aws_account_id>>
-              aws_role_name: <<parameters.aws_role_name>>
-              terragrunt_working_dir: <<parameters.terragrunt_working_dir>>
-    commands:
-      assume_role_and_run_terragrunt:
-        parameters:
-          aws_account_id:
-            type: string
-          aws_role_name:
-            type: string
-          terragrunt_working_dir:
-            type: string
-        steps:
-          - checkout
-          - run:
-              name: Assume Role & Run Terragrunt
-              command: |
-                echo "Current identity..."
-                aws sts get-caller-identity
-                echo "Assuming role..."
-                ASSUME_ROLE_OUTPUT=$(aws sts assume-role --role-arn arn:aws:iam::<<parameters.aws_account_id>>:role/<<parameters.aws_role_name>> --role-session-name <<parameters.aws_role_name>>-$(date +%FT%H.%M.%S))
-                export AWS_ACCESS_KEY_ID=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.AccessKeyId')
-                export AWS_SECRET_ACCESS_KEY=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SecretAccessKey')
-                export AWS_SESSION_TOKEN=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SessionToken')
-                echo "Assumed identity..."
-                aws sts get-caller-identity
-                cd <<parameters.terragrunt_working_dir>>
-                terragrunt apply -auto-approve
-    executors:
-      terragrunt_executor:
-        parameters:
-          aws_default_region:
-            type: string
-            default: eu-west-1
-          version:
-            type: string
-            default: latest
-        environment:
-          AWS_DEFAULT_REGION: <<parameters.aws_default_region>>
-        docker:
-          - image: moonpig/build-aws:<<parameters.version>>
+  deploy_to_aws_with_terragrunt: moonpig-sandbox/deploy_to_aws_with_terragrunt@1.0.6
 
 workflows:
   deploy-multi-region:

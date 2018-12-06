@@ -3,7 +3,7 @@ version: 2.1
 description: moonpig-content-data deployment
 
 orbs:
-  deploy_to_aws_with_terragrunt: moonpig-sandbox/deploy_to_aws_with_terragrunt@1.0.9
+  deploy_to_aws_with_terragrunt: moonpig-sandbox/deploy_to_aws_with_terragrunt@1.0.7
 
 workflows:
   deploy-multi-region:

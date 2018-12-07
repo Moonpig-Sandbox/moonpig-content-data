@@ -51,7 +51,7 @@ orbs:
             type: string
           terragrunt_working_dir:
             type: string
-          steps:
+        steps:
           - checkout
           - run:
               name: Assume Role & Run Terragrunt

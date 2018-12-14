@@ -2,64 +2,98 @@ version: 2.1
 
 description: moonpig-content-data deployment
 
-orbs:
-  deploy_to_aws_with_terragrunt: moonpig-sandbox/deploy_to_aws_with_terragrunt@1.0.15
-workflows:
-  deploy-multi-region:
-    jobs:
-    - deploy_to_aws_with_terragrunt/deploy_component:
-        name: us-east-1_deploy
-        # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
-        # The Orb depends on the environment varibales being set at the project level.
-        # aws_access_key_id: ${AWS_ACCESS_KEY_ID}
-        aws_account_id: "452630188168" # Needs to be quoted
-        aws_region: us-east-1
-        aws_role_name: mnpg-content-data-pipeline-dev
-        # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
-        # The Orb depends on the environment varibales being set at the project level.
-        # aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
-        moonpig_aws_build_container_version: latest
-        terragrunt_working_dir: ./deploy/config/dev/us-east-1/db
-    - deploy_to_aws_with_terragrunt/deploy_component:
-        name: eu-west-1_deploy
-        # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
-        # The Orb depends on the environment varibales being set at the project level.
-        # aws_access_key_id: ${AWS_ACCESS_KEY_ID}
-        aws_account_id: "452630188168" # Needs to be quoted
-        aws_region: eu-west-1
-        aws_role_name: mnpg-content-data-pipeline-dev
-        # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
-        # The Orb depends on the environment varibales being set at the project level.
-        # aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
-        moonpig_aws_build_container_version: latest
-        terragrunt_working_dir: ./deploy/config/dev/eu-west-1/db
-    - deploy_to_aws_with_terragrunt/deploy_component:
-        name: ap-southeast-2_deploy
-        # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
-        # The Orb depends on the environment varibales being set at the project level.
-        # aws_access_key_id: ${AWS_ACCESS_KEY_ID}
-        aws_account_id: "452630188168" # Needs to be quoted
-        aws_region: ap-southeast-2
-        aws_role_name: mnpg-content-data-pipeline-dev
-        # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
-        # The Orb depends on the environment varibales being set at the project level.
-        # aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
-        moonpig_aws_build_container_version: latest
-        terragrunt_working_dir: ./deploy/config/dev/ap-southeast-2/db
-    - deploy_to_aws_with_terragrunt/deploy_component:
-        name: global_deploy
-        requires:
-        - us-east-1_deploy
-        - eu-west-1_deploy
-        - ap-southeast-2_deploy
-        # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
-        # The Orb depends on the environment varibales being set at the project level.
-        # aws_access_key_id: ${AWS_ACCESS_KEY_ID}
-        aws_account_id: "452630188168" # Needs to be quoted
-        aws_region: eu-west-1
-        aws_role_name: mnpg-content-data-pipeline-dev
-        # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
-        # The Orb depends on the environment varibales being set at the project level.
-        # aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
-        moonpig_aws_build_container_version: latest
-        terragrunt_working_dir: ./deploy/config/dev/global/db
+# orbs:
+#   deploy_to_aws_with_terragrunt: moonpig-sandbox/deploy_to_aws_with_terragrunt@1.0.16
+
+jobs:	
+  build:
+    # Requires the following environment variables setting in CircleCI:	
+    # - AWS_ACCESS_KEY_ID
+    # - AWS_SECRET_ACCESS_KEY
+    environment:	
+      AWS_DEFAULT_REGION: "eu-west-1" # Defined locally for now, may need to parameterise	
+      AWS_ACCOUNT_ID: "452630188168" # Defined locally for now, may need to parameterise	
+      AWS_ROLE_NAME: "mnpg-content-data-pipeline-dev" # Defined locally for now, may need to parameterise	
+      TERRAGRUNT_WORKING_DIR: "./deploy/config/dev/eu-west-1/db" # Defined locally for now, may need to parameterise	
+    docker:	
+       - image: moonpig/build-aws:latest	
+    steps:	
+      - checkout	
+      - run:	
+          name: Assume Role & Terragrunt	
+          command: |
+            echo "ENV TEST START..."
+            echo ${MY_VARIABLE_TEST}
+            echo "...ENV TEST END"
+            
+            echo "Current identity..."	
+            aws sts get-caller-identity	
+            echo "Assuming role..."	
+            ASSUME_ROLE_OUTPUT=$(aws sts assume-role --role-arn arn:aws:iam::${AWS_ACCOUNT_ID}:role/${AWS_ROLE_NAME} --role-session-name ${AWS_ROLE_NAME}-$(date +%FT%H.%M.%S))	
+            export AWS_ACCESS_KEY_ID=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.AccessKeyId')	
+            export AWS_SECRET_ACCESS_KEY=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SecretAccessKey')	
+            export AWS_SESSION_TOKEN=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SessionToken')	
+            echo "Assumed identity..."	
+            aws sts get-caller-identity	
+            cd ${TERRAGRUNT_WORKING_DIR}
+            terragrunt apply -auto-approve
+
+# workflows:
+#   deploy-multi-region:
+#     jobs:
+#     - deploy_to_aws_with_terragrunt/deploy_component:
+#         name: us-east-1_deploy
+#         # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
+#         # The Orb depends on the environment varibales being set at the project level.
+#         # aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+#         aws_account_id: "452630188168" # Needs to be quoted
+#         aws_region: us-east-1
+#         aws_role_name: mnpg-content-data-pipeline-dev
+#         # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
+#         # The Orb depends on the environment varibales being set at the project level.
+#         # aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+#         moonpig_aws_build_container_version: latest
+#         terragrunt_working_dir: ./deploy/config/dev/us-east-1/db
+#     - deploy_to_aws_with_terragrunt/deploy_component:
+#         name: eu-west-1_deploy
+#         # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
+#         # The Orb depends on the environment varibales being set at the project level.
+#         # aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+#         aws_account_id: "452630188168" # Needs to be quoted
+#         aws_region: eu-west-1
+#         aws_role_name: mnpg-content-data-pipeline-dev
+#         # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
+#         # The Orb depends on the environment varibales being set at the project level.
+#         # aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+#         moonpig_aws_build_container_version: latest
+#         terragrunt_working_dir: ./deploy/config/dev/eu-west-1/db
+#     - deploy_to_aws_with_terragrunt/deploy_component:
+#         name: ap-southeast-2_deploy
+#         # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
+#         # The Orb depends on the environment varibales being set at the project level.
+#         # aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+#         aws_account_id: "452630188168" # Needs to be quoted
+#         aws_region: ap-southeast-2
+#         aws_role_name: mnpg-content-data-pipeline-dev
+#         # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
+#         # The Orb depends on the environment varibales being set at the project level.
+#         # aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+#         moonpig_aws_build_container_version: latest
+#         terragrunt_working_dir: ./deploy/config/dev/ap-southeast-2/db
+#     - deploy_to_aws_with_terragrunt/deploy_component:
+#         name: global_deploy
+#         requires:
+#         - us-east-1_deploy
+#         - eu-west-1_deploy
+#         - ap-southeast-2_deploy
+#         # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
+#         # The Orb depends on the environment varibales being set at the project level.
+#         # aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+#         aws_account_id: "452630188168" # Needs to be quoted
+#         aws_region: eu-west-1
+#         aws_role_name: mnpg-content-data-pipeline-dev
+#         # Environment variables are not YET expanded in config blocks by CircleCI, only "command" blocks.
+#         # The Orb depends on the environment varibales being set at the project level.
+#         # aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+#         moonpig_aws_build_container_version: latest
+#         terragrunt_working_dir: ./deploy/config/dev/global/db

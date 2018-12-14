@@ -1,6 +1,6 @@
 version: 2.1
 
-description: moonpig-content-data deployment
+description: moonpig-content-data build
 
 # orbs:
 #   deploy_to_aws_with_terragrunt: moonpig-sandbox/deploy_to_aws_with_terragrunt@1.0.16

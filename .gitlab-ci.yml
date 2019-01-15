@@ -5,7 +5,7 @@ build-master:
   script: 
   - echo "Current identity..."
   - aws sts get-caller-identity
-  - echo "Assuming role ${aws_role_name} in ${aws_account_id}"
+  - echo "Assuming role arn:aws:iam::${aws_account_id}:role/${aws_role_name} - $(date +%FT%H.%M.%S)"
   - ASSUME_ROLE_OUTPUT=$(aws sts assume-role --role-arn arn:aws:iam::${aws_account_id}:role/${aws_role_name} --role-session-name ${aws_role_name}-$(date +%FT%H.%M.%S))
   - export AWS_ACCESS_KEY_ID=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.AccessKeyId')
   - export AWS_SECRET_ACCESS_KEY=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SecretAccessKey')

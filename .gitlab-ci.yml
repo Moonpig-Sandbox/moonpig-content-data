@@ -1,0 +1,9 @@
+image: moonpig/build-aws:latest
+
+build-master:
+  stage: build
+  script: 
+  - echo "Current identity..."
+  - aws sts get-caller-identity
+  only:
+  - master

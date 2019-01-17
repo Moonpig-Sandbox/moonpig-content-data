@@ -10,9 +10,10 @@ build-master:
   - export AWS_ACCESS_KEY_ID=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.AccessKeyId')
   - export AWS_SECRET_ACCESS_KEY=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SecretAccessKey')
   - export AWS_SESSION_TOKEN=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SessionToken')
+  - export AWS_DEFAULT_REGION="eu-west-1"
   - echo "Assumed identity..."
   - aws sts get-caller-identity
   - cd deploy/config/dev/eu-west-1/db
-  - terragrunt apply -auto-approve
+  - terragrunt apply -auto-approve --terragrunt-non-interactive
   only:
   - master

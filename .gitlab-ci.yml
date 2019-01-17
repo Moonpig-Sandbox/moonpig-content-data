@@ -1,4 +1,4 @@
-image: moonpig/build-aws:latest
+image: moonpig/build-aws:v0.1.34
 
 build-master:
   stage: build
@@ -12,5 +12,7 @@ build-master:
   - export AWS_SESSION_TOKEN=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SessionToken')
   - echo "Assumed identity..."
   - aws sts get-caller-identity
+  - cd deploy/config/dev/eu-west-1/db
+  - terragrunt apply -auto-approve
   only:
   - master

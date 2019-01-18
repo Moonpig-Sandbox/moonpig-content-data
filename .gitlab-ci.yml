@@ -1,5 +1,8 @@
 image: moonpig/build-aws:v0.1.34
 
+stages:
+    - deploy-dev
+
 deploy-eu-west-1:
   stage: deploy-dev
   script: 

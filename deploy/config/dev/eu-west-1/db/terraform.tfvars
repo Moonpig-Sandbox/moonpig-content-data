@@ -24,6 +24,6 @@ terragrunt = {
 
 ContentStackUpdatesTableReadCapacityUnitsMin = 5
 ContentStackUpdatesTableReadCapacityUnitsMax = 5
-ContentStackUpdatesTableWriteCapacityUnitsMin = 20
-ContentStackUpdatesTableWriteCapacityUnitsMax = 20
+ContentStackUpdatesTableWriteCapacityUnitsMin = 25
+ContentStackUpdatesTableWriteCapacityUnitsMax = 25
 ContentStackUpdatesTableAutoScalePolicyTargetValue = 50.0

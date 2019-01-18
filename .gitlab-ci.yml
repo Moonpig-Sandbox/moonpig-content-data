@@ -1,7 +1,7 @@
 image: moonpig/build-aws:v0.1.34
 
-build-master:
-  stage: build
+deploy-eu-west-1:
+  stage: deploy-dev
   script: 
   - echo "Current identity..."
   - aws sts get-caller-identity

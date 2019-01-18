@@ -1,3 +1,7 @@
+# PLEASE NOTE. Due to a bug in Terraform the role_arn value is not set when creating the resource.
+# Because of this Terraform will modify the resource every time you apply as it will detect that
+# it is currently using the default role instead of the one in the script.
+# https://github.com/terraform-providers/terraform-provider-aws/issues/5023
 resource "aws_appautoscaling_target" "dynamodb_table_read_target" {
   max_capacity       = "${var.ContentStackUpdatesTableReadCapacityUnitsMax}"
   min_capacity       = "${var.ContentStackUpdatesTableReadCapacityUnitsMin}"

@@ -8,5 +8,3 @@ deploy-eu-west-1:
   script: 
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/dev/eu-west-1/db
-  only:
-  - master

@@ -6,17 +6,7 @@ stages:
 deploy-eu-west-1:
   stage: deploy-dev
   script: 
-  - echo "Current identity..."
-  - aws sts get-caller-identity
-  - echo "Assuming role arn:aws:iam::${aws_account_id}:role/${aws_role_name} - $(date +%FT%H.%M.%S)"
-  - ASSUME_ROLE_OUTPUT=$(aws sts assume-role --role-arn arn:aws:iam::${aws_account_id}:role/${aws_role_name} --role-session-name ${aws_role_name}-$(date +%FT%H.%M.%S))
-  - export AWS_ACCESS_KEY_ID=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.AccessKeyId')
-  - export AWS_SECRET_ACCESS_KEY=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SecretAccessKey')
-  - export AWS_SESSION_TOKEN=$(echo ${ASSUME_ROLE_OUTPUT} | jq --raw-output '.Credentials.SessionToken')
-  - export AWS_DEFAULT_REGION="eu-west-1"
-  - echo "Assumed identity..."
-  - aws sts get-caller-identity
-  - cd deploy/config/dev/eu-west-1/db
-  - terragrunt apply -auto-approve --terragrunt-non-interactive
+    - chmod -R 755 deploy/bash/
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/dev/eu-west-1/db
   only:
   - master

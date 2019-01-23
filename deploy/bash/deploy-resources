@@ -1,0 +1,9 @@
+#!/bin/bash
+
+aws_account_id=$1
+aws_role_name=$2
+aws_region=$3
+terragrunt_path=$4
+
+. deploy/bash/assume-role $aws_account_id $aws_role_name
+deploy/bash/run-terragrunt $terragrunt_path $aws_region

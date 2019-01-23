@@ -1,0 +1,7 @@
+
+terragrunt_path=$1
+aws_region=$2
+
+export AWS_DEFAULT_REGION=$aws_region
+cd $terragrunt_path
+terragrunt apply -auto-approve --terragrunt-non-interactive

@@ -27,3 +27,5 @@ deploy-dev-global:
   script: 
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/dev/global/db
+    
+Broken yaml

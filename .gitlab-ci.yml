@@ -7,6 +7,7 @@ stages:
 deploy-dev-eu-west-1:
   stage: deploy-dev-regional
   script: 
+    - echo ${CI_PIPELINE_IID}
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/dev/eu-west-1/db
 

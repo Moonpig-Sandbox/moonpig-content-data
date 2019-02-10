@@ -14,24 +14,32 @@ deploy-dev-eu-west-1:
     - echo ${CI_PIPELINE_IID}
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/eu-west-1/db dev1 dev
+  except:
+    - triggers
 
 deploy-dev-us-east-1:
   stage: deploy-dev-regional
   script: 
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} us-east-1 deploy/config/us-east-1/db dev1 dev
+  except:
+    - triggers
 
 deploy-dev-ap-southeast-2:
   stage: deploy-dev-regional
   script: 
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} ap-southeast-2 deploy/config/ap-southeast-2/db dev1 dev
+  except:
+    - triggers
 
 deploy-dev-global:
   stage: deploy-dev-global
   script: 
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/global/db dev1 dev
+  except:
+    - triggers
 
 deploy-test-eu-west-1:
   stage: deploy-test-regional
@@ -39,25 +47,33 @@ deploy-test-eu-west-1:
     - echo ${CI_PIPELINE_IID}
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/eu-west-1/db QA test
+  except:
+    - triggers
 
 deploy-test-us-east-1:
   stage: deploy-test-regional
   script: 
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} us-east-1 deploy/config/us-east-1/db QA test
+  except:
+    - triggers
 
 deploy-test-ap-southeast-2:
   stage: deploy-test-regional
   script: 
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} ap-southeast-2 deploy/config/ap-southeast-2/db QA test
+  except:
+    - triggers
 
 deploy-test-global:
   stage: deploy-test-global
   script: 
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/global/db QA test
-
+  except:
+    - triggers
+    
 deploy-dynamic-eu-west-1:
   stage: deploy-dynamic-regional
   variables:

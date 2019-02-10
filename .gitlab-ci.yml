@@ -63,11 +63,11 @@ deploy-dynamic-eu-west-1:
   variables:
     aws_account_id: ${aws_account_id}
     environment: dynamic
-    environment-type: dev
+    environment_type: dev
   script: 
     - echo ${CI_PIPELINE_IID}
     - chmod -R 755 deploy/bash/
-    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/eu-west-1/db ${environment} ${environment-type}
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/eu-west-1/db ${environment} ${environment_type}
   only:
     - triggers
 
@@ -76,10 +76,10 @@ deploy-dynamic-us-east-1:
   variables:
     aws_account_id: ${aws_account_id}
     environment: dynamic
-    environment-type: dev
+    environment_type: dev
   script: 
     - chmod -R 755 deploy/bash/
-    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} us-east-1 deploy/config/us-east-1/db ${environment} ${environment-type}
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} us-east-1 deploy/config/us-east-1/db ${environment} ${environment_type}
   only:
     - triggers
 
@@ -88,10 +88,10 @@ deploy-dynamic-ap-southeast-2:
   variables:
     aws_account_id: ${aws_account_id}
     environment: dynamic
-    environment-type: dev
+    environment_type: dev
   script: 
     - chmod -R 755 deploy/bash/
-    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} ap-southeast-2 deploy/config/ap-southeast-2/db ${environment} ${environment-type}
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} ap-southeast-2 deploy/config/ap-southeast-2/db ${environment} ${environment_type}
   only:
     - triggers
 
@@ -100,9 +100,9 @@ deploy-dynamic-global:
   variables:
     aws_account_id: ${aws_account_id}
     environment: dynamic
-    environment-type: dev
+    environment_type: dev
   script: 
     - chmod -R 755 deploy/bash/
-    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/global/db ${environment} ${environment-type}
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/global/db ${environment} ${environment_type}
   only:
     - triggers

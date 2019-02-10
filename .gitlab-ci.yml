@@ -5,6 +5,8 @@ stages:
     - deploy-dev-global
     - deploy-test-regional
     - deploy-test-global
+    - deploy-dynamic-regional
+    - deploy-dynamic-global
 
 deploy-dev-eu-west-1:
   stage: deploy-dev-regional
@@ -55,3 +57,52 @@ deploy-test-global:
   script: 
     - chmod -R 755 deploy/bash/
     - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/global/db QA test
+
+deploy-dynamic-eu-west-1:
+  stage: deploy-dynamic-regional
+  variables:
+    aws_account_id: ${aws_account_id}
+    environment: dynamic
+    environment-type: dev
+  script: 
+    - echo ${CI_PIPELINE_IID}
+    - chmod -R 755 deploy/bash/
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/eu-west-1/db ${environment} ${environment-type}
+  only:
+    - triggers
+
+deploy-dynamic-us-east-1:
+  stage: deploy-dynamic-regional
+  variables:
+    aws_account_id: ${aws_account_id}
+    environment: dynamic
+    environment-type: dev
+  script: 
+    - chmod -R 755 deploy/bash/
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} us-east-1 deploy/config/us-east-1/db ${environment} ${environment-type}
+  only:
+    - triggers
+
+deploy-dynamic-ap-southeast-2:
+  stage: deploy-dynamic-regional
+  variables:
+    aws_account_id: ${aws_account_id}
+    environment: dynamic
+    environment-type: dev
+  script: 
+    - chmod -R 755 deploy/bash/
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} ap-southeast-2 deploy/config/ap-southeast-2/db ${environment} ${environment-type}
+  only:
+    - triggers
+
+deploy-dynamic-global:
+  stage: deploy-dynamic-global
+  variables:
+    aws_account_id: ${aws_account_id}
+    environment: dynamic
+    environment-type: dev
+  script: 
+    - chmod -R 755 deploy/bash/
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/global/db ${environment} ${environment-type}
+  only:
+    - triggers

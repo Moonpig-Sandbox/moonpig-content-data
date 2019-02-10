@@ -1,7 +1,14 @@
 
 terragrunt_path=$1
 aws_region=$2
+account_id=$3
+environment=$4
+environment_type=$5
 
 export AWS_DEFAULT_REGION=$aws_region
+export TF_VAR_target_account_id=$account_id
+export TF_VAR_environment=$environment
+export TF_VAR_environment_type=$environment_type
+
 cd $terragrunt_path
 terragrunt apply -auto-approve --terragrunt-non-interactive

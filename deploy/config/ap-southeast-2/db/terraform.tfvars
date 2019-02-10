@@ -1,6 +1,6 @@
 terragrunt = {
   terraform {
-    source = "../../../../modules/global//db"
+    source = "../../../modules/regional//db"
     extra_arguments "custom_vars" {
       commands = [
         "apply",
@@ -11,8 +11,8 @@ terragrunt = {
         "destroy"
       ]
       arguments = [
-        "-var-file=${get_tfvars_dir()}/../../../core.tfvars",
-        "-var-file=${get_tfvars_dir()}/../../dev.tfvars",
+        "-var-file=${get_tfvars_dir()}/../../core.tfvars",
+        "-var-file=${get_tfvars_dir()}/../../environment-types/${get_env("TF_VAR_environment_type", "dev")}.tfvars",
         "-var-file=terraform.tfvars"
       ]
     }

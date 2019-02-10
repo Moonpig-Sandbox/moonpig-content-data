@@ -1,5 +1,5 @@
 resource "aws_iam_role" "scaling-role" {
-  name = "${var.ContentStackUpdatesTableName}-autoscale-${var.EnvironmentName}-${data.aws_region.current.name}"
+  name = "${var.ContentStackUpdatesTableName}-autoscale-${var.environment}-${data.aws_region.current.name}"
 
   assume_role_policy = <<EOF
 {
@@ -18,7 +18,7 @@ resource "aws_iam_role" "scaling-role" {
 EOF
 
   tags {
-    "mnpg:environment" = "${var.TagEnvironmentValue}"
+    "mnpg:environment" = "${var.environment}"
     "mnpg:name"        = "${var.TagNameValue}"
     "mnpg:owner"       = "${var.TagOwnerValue}"
     "mnpg:team"        = "${var.TagTeamValue}"
@@ -27,7 +27,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "scaling-role-policy" {
-  name        = "${var.ContentStackUpdatesTableName}-autoscale-${var.EnvironmentName}-${data.aws_region.current.name}"
+  name        = "${var.ContentStackUpdatesTableName}-autoscale-${var.environment}-${data.aws_region.current.name}"
   role        = "${aws_iam_role.scaling-role.id}"
 
   policy = <<EOF

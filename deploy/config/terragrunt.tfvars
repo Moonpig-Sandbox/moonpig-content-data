@@ -3,10 +3,10 @@ terragrunt = {
     backend = "s3"
     config {
       bucket         = "mnpg-content-data-terraform-state"
-      key            = "${path_relative_to_include()}/terraform.tfstate"
+      key            = "${get_env("TF_VAR_target_account_id", "none")}/${get_env("TF_VAR_environment", "dev")}/${path_relative_to_include()}/terraform.tfstate"
       region         = "eu-west-1"
       encrypt        = true
-      dynamodb_table = "mnpg-content-data-terraform-state-lock"
+      dynamodb_table = "mnpg-content-data-${get_env("TF_VAR_target_account_id", "none")}-${get_env("TF_VAR_environment", "dev")}-terraform-state-lock"
       s3_bucket_tags {
         "mnpg:environment" = "NA"
         "mnpg:name"        = "mnpg-content-data"

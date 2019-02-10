@@ -1,6 +1,6 @@
 terragrunt = {
   terraform {
-    source = "../../../../modules/regional//db"
+    source = "../../../modules/regional//db"
     extra_arguments "custom_vars" {
       commands = [
         "apply",
@@ -11,8 +11,7 @@ terragrunt = {
         "destroy"
       ]
       arguments = [
-        "-var-file=${get_tfvars_dir()}/../../../core.tfvars",
-        "-var-file=${get_tfvars_dir()}/../../dev.tfvars",
+        "-var-file=${get_tfvars_dir()}/../../core.tfvars",
         "-var-file=terraform.tfvars"
       ]
     }
@@ -22,8 +21,8 @@ terragrunt = {
   }
 }
 
-ContentStackUpdatesTableReadCapacityUnitsMin = 1
-ContentStackUpdatesTableReadCapacityUnitsMax = 1
-ContentStackUpdatesTableWriteCapacityUnitsMin = 20
-ContentStackUpdatesTableWriteCapacityUnitsMax = 20
+ContentStackUpdatesTableReadCapacityUnitsMin = 5
+ContentStackUpdatesTableReadCapacityUnitsMax = 5
+ContentStackUpdatesTableWriteCapacityUnitsMin = 25
+ContentStackUpdatesTableWriteCapacityUnitsMax = 25
 ContentStackUpdatesTableAutoScalePolicyTargetValue = 50.0

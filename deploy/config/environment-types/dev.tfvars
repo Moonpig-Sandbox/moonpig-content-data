@@ -1,0 +1,5 @@
+ContentStackUpdatesTableReadCapacityUnitsMin = 1
+ContentStackUpdatesTableReadCapacityUnitsMax = 1
+ContentStackUpdatesTableWriteCapacityUnitsMin = 1
+ContentStackUpdatesTableWriteCapacityUnitsMax = 1
+ContentStackUpdatesTableAutoScalePolicyTargetValue = 50.0

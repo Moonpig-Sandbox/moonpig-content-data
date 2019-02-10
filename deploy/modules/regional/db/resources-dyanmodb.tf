@@ -1,6 +1,6 @@
 resource "aws_dynamodb_table" "dynamodb-table" {
   hash_key         = "id"
-  name             = "${var.ContentStackUpdatesTableName}-${var.EnvironmentName}"
+  name             = "${var.ContentStackUpdatesTableName}-${var.environment}"
   read_capacity    = "${var.ContentStackUpdatesTableReadCapacityUnitsMin}"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
@@ -12,7 +12,7 @@ resource "aws_dynamodb_table" "dynamodb-table" {
   }
 
   tags {
-    "mnpg:environment" = "${var.TagEnvironmentValue}"
+    "mnpg:environment" = "${var.environment}"
     "mnpg:name"        = "${var.TagNameValue}"
     "mnpg:owner"       = "${var.TagOwnerValue}"
     "mnpg:team"        = "${var.TagTeamValue}"

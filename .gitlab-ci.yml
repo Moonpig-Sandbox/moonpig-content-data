@@ -9,22 +9,22 @@ deploy-dev-eu-west-1:
   script: 
     - echo ${CI_PIPELINE_IID}
     - chmod -R 755 deploy/bash/
-    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/dev/eu-west-1/db
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/eu-west-1/db dev1 dev
 
 deploy-dev-us-east-1:
   stage: deploy-dev-regional
   script: 
     - chmod -R 755 deploy/bash/
-    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} us-east-1 deploy/config/dev/us-east-1/db
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} us-east-1 deploy/config/us-east-1/db dev1 dev
 
 deploy-dev-ap-southeast-2:
   stage: deploy-dev-regional
   script: 
     - chmod -R 755 deploy/bash/
-    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} ap-southeast-2 deploy/config/dev/ap-southeast-2/db
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} ap-southeast-2 deploy/config/ap-southeast-2/db dev1 dev
 
 deploy-dev-global:
   stage: deploy-dev-global
   script: 
     - chmod -R 755 deploy/bash/
-    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/dev/global/db
+    - deploy/bash/deploy-resources ${aws_account_id} ${aws_role_name} eu-west-1 deploy/config/global/db dev1 dev

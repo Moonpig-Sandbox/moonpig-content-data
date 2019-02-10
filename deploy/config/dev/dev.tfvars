@@ -1,2 +1,0 @@
-TagEnvironmentValue = "dev"
-EnvironmentName     = "dev"

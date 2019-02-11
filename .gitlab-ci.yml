@@ -1,4 +1,4 @@
-image: moonpig/build-aws:v0.1.34
+image: "$BUILD_REGISTRY/deploy-aws:latest"
 
 stages:
     - deploy-dev-regional
